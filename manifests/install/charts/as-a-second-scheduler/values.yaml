@@ -7,7 +7,7 @@ scheduler:
   image: registry.k8s.io/scheduler-plugins/kube-scheduler:v0.29.7
   replicaCount: 1
   leaderElect: false
-  nodeSelector: {}
+  nodeSelector: {changethisvalue}
   affinity: {}
   tolerations: []
 
@@ -23,16 +23,16 @@ controller:
 # as they need extra RBAC privileges on metrics.k8s.io.
 
 plugins:
-  enabled: ["Coscheduling","CapacityScheduling","NodeResourceTopologyMatch","NodeResourcesAllocatable"]
-  disabled: ["PrioritySort"] # only in-tree plugins need to be defined here
+  enabled: ["GpuMemoryFilter"]
+  disabled: ["Coscheduling","CapacityScheduling","NodeResourceTopologyMatch","NodeResourcesAllocatable"] # only in-tree plugins need to be defined here
 
 # Customize the enabled plugins' config.
 # Refer to the "pluginConfig" section of manifests/<plugin>/scheduler-config.yaml.
 # For example, for Coscheduling plugin, you want to customize the permit waiting timeout to 10 seconds:
-pluginConfig:
-- name: Coscheduling
-  args:
-    permitWaitingTimeSeconds: 10 # default is 60
+# pluginConfig:
+# - name: Coscheduling
+#   args:
+#     permitWaitingTimeSeconds: 10 # default is 60
 # Or, customize the other plugins
 # - name: NodeResourceTopologyMatch
 #   args:
